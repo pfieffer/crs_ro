@@ -3,23 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_clothes">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.crs_ro.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_clothes"
+        android:name="com.example.crs_ro.ui.clothes.ClothesFragment"
+        android:label="@string/title_clothes"
+        tools:layout="@layout/fragment_clothes" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.crs_ro.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_seasons"
+        android:name="com.example.crs_ro.ui.seasons.SeasonsFragment"
+        android:label="@string/title_seasons"
+        tools:layout="@layout/fragment_seasons" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.crs_ro.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_more"
+        android:name="com.example.crs_ro.ui.more.MoreFragment"
+        android:label="@string/title_more"
+        tools:layout="@layout/fragment_more"/>
+
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.crs_ro.ui.dashboard
+package com.example.crs_ro.ui.seasons
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.crs_ro.R
 
-class DashboardFragment : Fragment() {
+class SeasonsFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var seasonsViewModel: SeasonsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-            ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        seasonsViewModel =
+            ViewModelProviders.of(this).get(SeasonsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_seasons, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(this, Observer {
+        seasonsViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root

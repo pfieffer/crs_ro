@@ -1,13 +1,13 @@
-package com.example.crs_ro.ui.home
+package com.example.crs_ro.ui.seasons
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class SeasonsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+        value = "This is Seasons Fragment"
     }
     val text: LiveData<String> = _text
 }

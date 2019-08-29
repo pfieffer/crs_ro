@@ -1,4 +1,4 @@
-package com.example.crs_ro.ui.home
+package com.example.crs_ro.ui.clothes
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.crs_ro.R
 
-class HomeFragment : Fragment() {
+class ClothesFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var clothesViewModel: ClothesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        clothesViewModel =
+            ViewModelProviders.of(this).get(ClothesViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_clothes, container, false)
         val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(this, Observer {
+        clothesViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root
