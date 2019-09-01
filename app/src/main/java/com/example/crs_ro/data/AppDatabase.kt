@@ -8,6 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.crs_ro.data.category.Category
 import com.example.crs_ro.data.category.CategoryDao
 import com.example.crs_ro.data.category.SampleCategories
+import kotlinx.coroutines.CoroutineScope
 import java.util.concurrent.Executors
 
 @Database(entities = arrayOf(Category::class), version = 1)
@@ -21,8 +22,8 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun getDatabaseInstance(context: Context): AppDatabase =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(context)
-            } as AppDatabase
+                INSTANCE ?: buildDatabase(context).build()
+            }
 
 
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
