@@ -1,7 +1,6 @@
 package com.example.crs_ro.data.category
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.core.util.forEach
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
