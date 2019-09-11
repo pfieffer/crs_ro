@@ -90,4 +90,16 @@ class SubCategoryDaoTest {
         //check if they are equal
         Assert.assertEquals(allCategories, SampleSubCategories.getSampleSubCategories())
     }
+
+    @Test
+    fun getSubCategoriesForCategory() = runBlocking {
+        //insert all sample sub-categories
+        subCategoryDao.insertAll(SampleSubCategories.getSampleSubCategories())
+        //get sub categories for 1st category
+        val subCategoriesForFirstCategory = subCategoryDao.getSubCategoriesForCategory(1).waitForValue()
+
+        //check if the size of subCategoriesForFirstCategory is actually 5 which is the number of sub categories
+        //for category 1
+        Assert.assertEquals(subCategoriesForFirstCategory.size, 5)
+    }
 }

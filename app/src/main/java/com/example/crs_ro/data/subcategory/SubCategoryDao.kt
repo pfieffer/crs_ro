@@ -11,6 +11,9 @@ interface SubCategoryDao {
     @Query("SELECT * FROM sub_categories")
     fun getAll(): LiveData<List<SubCategory>>
 
+    @Query("SELECT * FROM sub_categories WHERE category_id = :categoryId")
+    fun getSubCategoriesForCategory(categoryId: Int): LiveData<List<SubCategory>>
+
     @Insert
     suspend fun insert(subCategory: SubCategory)
 
