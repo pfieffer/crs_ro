@@ -48,7 +48,7 @@ abstract class AppDatabase : RoomDatabase() {
                         getDatabaseInstance(context).categoryDao()
                             .insertAll(SampleCategories.getSampleCategories())
                     }
-                    //TODO: IS this even possible?
+
                     Executors.newSingleThreadExecutor().execute {
                         // Populate database
                         getDatabaseInstance(context).subcategoryDao()

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_sub_category"
+        android:layout_width="@dimen/standard_touch_size"
+        android:layout_height="@dimen/standard_touch_size"
+        android:contentDescription="@string/category_image_content_desc"
+        android:src="@drawable/ic_hanger"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/standard_touch_size"/>
+
+    <TextView
+        android:id="@+id/tv_sub_category_name"
+        style="@style/AppTheme.Headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/iv_sub_category"
+        app:layout_constraintTop_toTopOf="@id/iv_sub_category"
+        app:layout_constraintBottom_toTopOf="@id/tv_sub_category_clothes_count"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Tops"
+        android:layout_marginStart="@dimen/margin_padding_size_medium"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/margin_padding_size_small"
+        android:id="@+id/tv_sub_category_clothes_count"
+        style="@style/AppTheme.Subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/iv_sub_category"
+        app:layout_constraintStart_toEndOf="@id/iv_sub_category"
+        app:layout_constraintTop_toBottomOf="@id/tv_sub_category_name"
+        tools:text="0 clothes"
+        android:layout_marginStart="@dimen/margin_padding_size_medium"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

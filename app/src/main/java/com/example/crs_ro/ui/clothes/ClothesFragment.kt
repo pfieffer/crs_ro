@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.crs_ro.R
-import kotlinx.android.synthetic.main.fragment_clothes.*
+import kotlinx.android.synthetic.main.fragment_clothes.view.*
 
 class ClothesFragment : Fragment() {
 
@@ -28,9 +28,11 @@ class ClothesFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_clothes, container, false)
 
-        clothesViewModel.allCategories.observe(this, Observer {
-            adapter.setCategoryList(it)
-            elv_categories.setAdapter(adapter)
+        rootView.elv_categories.setAdapter(adapter)
+
+        clothesViewModel.hashMap.observe(this, Observer {
+            adapter.setCategoryList(it.keys.toList())
+            adapter.setCategorySubCategoriesMap(it)
 
             adapter.notifyDataSetChanged()
         })
