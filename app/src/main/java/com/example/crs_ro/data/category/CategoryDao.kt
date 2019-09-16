@@ -1,6 +1,5 @@
 package com.example.crs_ro.data.category
 
-import android.util.SparseArray
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
@@ -11,6 +10,9 @@ import androidx.room.Query
 interface CategoryDao {
     @Query("SELECT * FROM categories")
     fun getAll(): LiveData<List<Category>>
+
+    @Query("SELECT * FROM categories")
+    fun getList(): List<Category>
 
     @Insert
     suspend fun insert(category: Category)

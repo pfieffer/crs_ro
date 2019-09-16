@@ -1,27 +1,34 @@
 package com.example.crs_ro.ui.clothes
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import com.example.crs_ro.R
 import com.example.crs_ro.data.category.Category
+import com.example.crs_ro.data.subcategory.SubCategory
 import kotlinx.android.synthetic.main.item_category.view.*
+import kotlinx.android.synthetic.main.item_sub_cateogry.view.*
 
 
 /*
-For ExpandableListAdapter: the Category is Group, Sub Category is Child
+For ExpandableListAdapter: the Category is Group, Sub Category is Child.
  */
 class CategoryListAdapter internal constructor(context: Context) : BaseExpandableListAdapter() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var categoryList: List<Category> = emptyList()
-//                          subCategoryList: List<SubCategory>
+    private var hashMap: Map<Category, List<SubCategory>> = emptyMap()
 
 
     internal fun setCategoryList(categories: List<Category>) {
         this.categoryList = categories
+    }
+
+    internal fun setCategorySubCategoriesMap(categorySubCategoriesMap: Map<Category, List<SubCategory>>){
+        this.hashMap = categorySubCategoriesMap
     }
 
     override fun getGroup(groupPosition: Int): Category {
@@ -42,28 +49,32 @@ class CategoryListAdapter internal constructor(context: Context) : BaseExpandabl
         _convertView: View?,
         parent: ViewGroup?
     ): View {
-        val headerTitle = getGroup(groupPosition).name
+        val categoryName = getGroup(groupPosition).name
 
         return if (_convertView == null) {
             val convertView = inflater.inflate(R.layout.item_category, parent, false)
 
-            convertView.tv_category_name.text = headerTitle
+            convertView.tv_category_name.text = categoryName
             convertView
         } else {
-            _convertView.tv_category_name.text = headerTitle
+            _convertView.tv_category_name.text = categoryName
             _convertView
         }
 
     }
 
     override fun getChildrenCount(groupPosition: Int): Int {
-        //TODO: Return the actual number of children in the group corresponding to the group position
-        return 1
+        return if(hashMap[categoryList[groupPosition]] != null){
+            //Using !! because it cannot be null
+            hashMap.getValue(categoryList[groupPosition]).size
+        } else{
+            0
+        }
+
     }
 
-    override fun getChild(groupPosition: Int, childPosition: Int): Any {
-        //TODO: Return a child (sub category) or a list of Children (Sub-Categories) at that groupPosition and/or childPosition
-        return "Hello"
+    override fun getChild(groupPosition: Int, childPosition: Int): SubCategory {
+        return hashMap.getValue(categoryList[groupPosition])[childPosition]
     }
 
     override fun getGroupId(groupPosition: Int): Long {
@@ -78,18 +89,18 @@ class CategoryListAdapter internal constructor(context: Context) : BaseExpandabl
         parent: ViewGroup?
     ): View {
 
-
-        val childText = getChild(groupPosition, childPosition) as String
+        val subCategory = getChild(groupPosition, childPosition)
+        val subCategoryName = subCategory.name
 
         if (_convertView == null) {
             val convertView = LayoutInflater.from(parent?.context)
-                .inflate(R.layout.item_category, parent, false)
-            convertView.tv_category_name.text = childText
+                .inflate(R.layout.item_sub_cateogry, parent, false)
+            convertView.tv_sub_category_name.text = subCategoryName
             return convertView
 
         } else {
 
-            _convertView.tv_category_name.text = childText
+            _convertView.tv_sub_category_name.text = subCategoryName
             return _convertView
         }
 
@@ -100,7 +111,7 @@ class CategoryListAdapter internal constructor(context: Context) : BaseExpandabl
     }
 
     override fun getGroupCount(): Int {
-        return this.categoryList.size
+        return categoryList.size
     }
 
 }
