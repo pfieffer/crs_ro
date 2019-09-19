@@ -5,11 +5,14 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.crs_ro.data.AppDatabase
+import com.example.crs_ro.data.category.CategoryDao
 import com.example.crs_ro.data.category.SampleCategories
 import com.example.crs_ro.data.subcategory.SampleSubCategories
+import com.example.crs_ro.data.subcategory.SubCategoryDao
 
 import com.example.crs_ro.data.waitForValue
 import kotlinx.coroutines.runBlocking
+import org.hamcrest.CoreMatchers.instanceOf
 import org.junit.*
 
 import org.junit.runner.RunWith
@@ -21,6 +24,8 @@ class ClothRepositoryTest {
 
     private lateinit var clothRepository: ClothRepository
     private lateinit var clothDao: ClothDao
+    private lateinit var categoryDao: CategoryDao
+    private lateinit var subCategoryDao: SubCategoryDao
     private lateinit var db: AppDatabase
 
     @Before
@@ -33,7 +38,10 @@ class ClothRepositoryTest {
             .allowMainThreadQueries()
             .build()
         clothDao = db.clothDao()
-        clothRepository = ClothRepository(clothDao)
+        categoryDao = db.categoryDao()
+        subCategoryDao = db.subcategoryDao()
+
+        clothRepository = ClothRepository(clothDao, categoryDao, subCategoryDao)
 
         //For clothes repository to be tested, seed database with Sample Categories and Sub-Categories
         db.categoryDao().insertAll(SampleCategories.getSampleCategories())
@@ -117,32 +125,29 @@ class ClothRepositoryTest {
         Assert.assertEquals(0, clothRepository.allClothes.waitForValue().size )
     }
 
+    /*
+    Test if we get the HashMao using getHashMapOfCategoriesAndSubCategories
+     */
     @Test
-    fun getNumberOfClothesInCategory() = runBlocking{
-        Assert.assertEquals(0, clothRepository.getNumberOfClothesInCategory(1).waitForValue())
-        //insert three clothes
-        val cloth1 = Cloth(1, "Shark Tees","test_image_url_1", 1, 5)
-        val cloth2 = Cloth(2, "Brown SweatShirt","test_image_url_2", 1, 4)
-        val cloth3 = Cloth(3, "Metallica Sleeveless","test_image_url_3", 1, 3)
-        clothRepository.insert(cloth1)
-        clothRepository.insert(cloth2)
-        clothRepository.insert(cloth3)
-
-        Assert.assertEquals(3, clothRepository.getNumberOfClothesInCategory(1).waitForValue())
+    fun test_if_returns_hashmap() {
+        Assert.assertThat(
+            clothRepository.getHashMapOfCategoriesAndSubCategories().waitForValue(),
+            instanceOf(HashMap::class.java)
+        )
     }
 
-    @Test
-    fun getNumberOfClothesInSubCategory() = runBlocking{
-        Assert.assertEquals(0, clothRepository.getNumberOfClothesInSubCategory(5).waitForValue())
-        //insert three clothes
-        val cloth1 = Cloth(1, "Shark Tees","test_image_url_1", 1, 5)
-        val cloth2 = Cloth(2, "Hollister Greeen T-Shirt","test_image_url_2", 1, 5)
-        val cloth3 = Cloth(3, "Save Humanity T-Shirt","test_image_url_3", 1, 5)
-        clothRepository.insert(cloth1)
-        clothRepository.insert(cloth2)
-        clothRepository.insert(cloth3)
 
-        Assert.assertEquals(3, clothRepository.getNumberOfClothesInSubCategory(5).waitForValue())
+    @Test
+    fun test_if_returned_hashMap_contains_expected_keys_and_values() {
+        Assert.assertEquals(
+            clothRepository.getHashMapOfCategoriesAndSubCategories().waitForValue().keys.toList().
+                sortedBy { it.id },
+            SampleCategories.getSampleCategories().toList()
+        )
+//        Assert.assertEquals(
+//            clothRepository.getHashMapOfCategoriesAndSubCategories().waitForValue().values.toList(),
+//            SampleSubCategories.getSampleSubCategories().toList()
+//        )
     }
 
 }
