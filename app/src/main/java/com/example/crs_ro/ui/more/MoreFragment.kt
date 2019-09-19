@@ -1,5 +1,6 @@
 package com.example.crs_ro.ui.more
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +33,7 @@ class MoreFragment: Fragment() {
         super.onStart()
 
         btn_add_clothes.setOnClickListener {
-            Toast.makeText(context, "add cloth", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Add cloth", Toast.LENGTH_SHORT).show()
         }
 
         btn_from_gallery.setOnClickListener {

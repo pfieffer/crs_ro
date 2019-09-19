@@ -8,7 +8,7 @@ import androidx.room.Query
 
 @Dao
 interface SubCategoryDao {
-    @Query("SELECT * FROM sub_categories")
+    @Query("SELECT * FROM sub_categories ORDER BY id")
     fun getAll(): LiveData<List<SubCategory>>
 
     @Query("SELECT * FROM sub_categories WHERE category_id = :categoryId")

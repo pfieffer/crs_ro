@@ -8,16 +8,19 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.crs_ro.data.category.Category
 import com.example.crs_ro.data.category.CategoryDao
 import com.example.crs_ro.data.category.SampleCategories
+import com.example.crs_ro.data.cloth.Cloth
+import com.example.crs_ro.data.cloth.ClothDao
 import com.example.crs_ro.data.subcategory.SampleSubCategories
 import com.example.crs_ro.data.subcategory.SubCategory
 import com.example.crs_ro.data.subcategory.SubCategoryDao
 import kotlinx.coroutines.CoroutineScope
 import java.util.concurrent.Executors
 
-@Database(entities = arrayOf(Category::class, SubCategory::class), version = 1)
+@Database(entities = arrayOf(Category::class, SubCategory::class, Cloth::class), version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
     abstract fun subcategoryDao(): SubCategoryDao
+    abstract fun clothDao(): ClothDao
 
     companion object {
         @Volatile

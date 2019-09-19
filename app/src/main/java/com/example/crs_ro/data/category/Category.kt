@@ -2,6 +2,7 @@ package com.example.crs_ro.data.category
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 
@@ -13,4 +14,6 @@ data class Category(
     @ColumnInfo(name = "name")
     val name: String
 ) {
+    @Ignore
+    var clothesCount : Int = 0
 }

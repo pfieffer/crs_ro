@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:groupIndicator="@null"
         tools:listitem="@layout/item_category"
+        android:layout_marginBottom="@dimen/margin_padding_size_small"
         android:indicatorEnd="?android:attr/expandableListPreferredItemIndicatorRight"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

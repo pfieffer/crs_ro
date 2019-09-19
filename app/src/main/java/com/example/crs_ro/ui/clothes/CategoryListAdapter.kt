@@ -1,7 +1,6 @@
 package com.example.crs_ro.ui.clothes
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,8 @@ import kotlinx.android.synthetic.main.item_sub_cateogry.view.*
 /*
 For ExpandableListAdapter: the Category is Group, Sub Category is Child.
  */
-class CategoryListAdapter internal constructor(context: Context) : BaseExpandableListAdapter() {
+class CategoryListAdapter internal constructor(private val context: Context) :
+    BaseExpandableListAdapter() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var categoryList: List<Category> = emptyList()
@@ -27,7 +27,7 @@ class CategoryListAdapter internal constructor(context: Context) : BaseExpandabl
         this.categoryList = categories
     }
 
-    internal fun setCategorySubCategoriesMap(categorySubCategoriesMap: Map<Category, List<SubCategory>>){
+    internal fun setCategorySubCategoriesMap(categorySubCategoriesMap: Map<Category, List<SubCategory>>) {
         this.hashMap = categorySubCategoriesMap
     }
 
@@ -49,25 +49,36 @@ class CategoryListAdapter internal constructor(context: Context) : BaseExpandabl
         _convertView: View?,
         parent: ViewGroup?
     ): View {
-        val categoryName = getGroup(groupPosition).name
+        val category = getGroup(groupPosition)
+
+        val categoryName = category.name
+        val numberOfClothesInCategory = category.clothesCount
+        val numberOfClothesInCategoryString = context.resources.getQuantityString(
+            R.plurals.numberOfClothes,
+            numberOfClothesInCategory,
+            numberOfClothesInCategory
+        )
 
         return if (_convertView == null) {
             val convertView = inflater.inflate(R.layout.item_category, parent, false)
 
             convertView.tv_category_name.text = categoryName
+            convertView.tv_category_clothes_count.text = numberOfClothesInCategoryString
             convertView
         } else {
             _convertView.tv_category_name.text = categoryName
+            _convertView.tv_category_clothes_count.text = numberOfClothesInCategoryString
+
             _convertView
         }
 
     }
 
     override fun getChildrenCount(groupPosition: Int): Int {
-        return if(hashMap[categoryList[groupPosition]] != null){
+        return if (hashMap[categoryList[groupPosition]] != null) {
             //Using !! because it cannot be null
             hashMap.getValue(categoryList[groupPosition]).size
-        } else{
+        } else {
             0
         }
 
@@ -88,19 +99,27 @@ class CategoryListAdapter internal constructor(context: Context) : BaseExpandabl
         _convertView: View?,
         parent: ViewGroup?
     ): View {
-
         val subCategory = getChild(groupPosition, childPosition)
+
         val subCategoryName = subCategory.name
+        val numberOfClothesInSubCategory = subCategory.clothesCount
+        val numberOfClothesInSubCategoryString = context.resources.getQuantityString(
+            R.plurals.numberOfClothes,
+            numberOfClothesInSubCategory,
+            numberOfClothesInSubCategory
+        )
 
         if (_convertView == null) {
             val convertView = LayoutInflater.from(parent?.context)
                 .inflate(R.layout.item_sub_cateogry, parent, false)
             convertView.tv_sub_category_name.text = subCategoryName
+            convertView.tv_sub_category_clothes_count.text = numberOfClothesInSubCategoryString
             return convertView
 
         } else {
 
             _convertView.tv_sub_category_name.text = subCategoryName
+            _convertView.tv_sub_category_clothes_count.text = numberOfClothesInSubCategoryString
             return _convertView
         }
 
