@@ -29,4 +29,6 @@ data class SubCategory(
     @ColumnInfo(name = "category_id")
     val categoryId: Int
 ) {
+    @Ignore
+    var clothesCount: Int = 0
 }

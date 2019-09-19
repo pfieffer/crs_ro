@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface ClothDao {
     @Insert
-    suspend fun insert(cloth:Cloth)
+    fun insert(cloth: Cloth)
 
     @Query("SELECT * FROM clothes")
     fun getAll(): LiveData<List<Cloth>>
@@ -26,10 +26,10 @@ interface ClothDao {
 
     //get number of clothes belonging to a subcategory
     @Query("SELECT count(*) FROM clothes WHERE sub_category_id= :subCategoryId")
-    fun getNumberOfClothesInSubCategory(subCategoryId: Int): LiveData<Int>
+    fun getNumberOfClothesInSubCategory(subCategoryId: Int): Int
 
     //get number of clothes belonging to a Category
     @Query("SELECT count(*) FROM clothes WHERE category_id= :categoryId")
-    fun getNumberOfClothesInCategory(categoryId: Int): LiveData<Int>
+    fun getNumberOfClothesInCategory(categoryId: Int): Int
 
 }

@@ -8,10 +8,10 @@ import androidx.room.Query
 
 @Dao
 interface CategoryDao {
-    @Query("SELECT * FROM categories")
+    @Query("SELECT * FROM categories ORDER BY id")
     fun getAll(): LiveData<List<Category>>
 
-    @Query("SELECT * FROM categories")
+    @Query("SELECT * FROM categories ORDER BY id")
     fun getList(): List<Category>
 
     @Insert

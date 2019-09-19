@@ -23,10 +23,12 @@
         app:layout_constraintTop_toTopOf="@id/iv_category"
         app:layout_constraintBottom_toTopOf="@id/tv_category_clothes_count"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:text="Tops" />
+        tools:text="Tops"
+        android:layout_marginStart="@dimen/margin_padding_size_medium"/>
 
     <TextView
         android:layout_marginTop="@dimen/margin_padding_size_small"
+        android:layout_marginStart="@dimen/margin_padding_size_medium"
         android:id="@+id/tv_category_clothes_count"
         style="@style/AppTheme.Subtitle"
         android:layout_width="wrap_content"

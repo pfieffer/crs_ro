@@ -13,8 +13,11 @@
     <string name="from_gallery">From Gallery</string>
     <string name="add_clothes">Add Clothes</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <plurals name="numberOfClothes">
+        <item quantity="one">%d Cloth</item>
+        <item quantity="other">%d Clothes</item>
+    </plurals>
+
 
     <!-- Content Descriptions-->
     <string name="category_image_content_desc">Category Image</string>
