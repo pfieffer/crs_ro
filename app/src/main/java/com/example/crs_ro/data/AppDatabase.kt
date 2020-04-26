@@ -50,10 +50,7 @@ abstract class AppDatabase : RoomDatabase() {
                         // Populate database
                         getDatabaseInstance(context).categoryDao()
                             .insertAll(SampleCategories.getSampleCategories())
-                    }
 
-                    Executors.newSingleThreadExecutor().execute {
-                        // Populate database
                         getDatabaseInstance(context).subcategoryDao()
                             .insertAll(SampleSubCategories.getSampleSubCategories())
                     }
